@@ -6,6 +6,11 @@ let meaningTwo = document.getElementById("meaningTwo");
 let theAudioEl = document.getElementById("audio");
 async function apiFunction(word) {
   try {
+    titleEl.style.display = "none";
+    meaningEl.style.display = "none";
+    meaningTwo.style.display = "none";
+    theAudioEl.style.display = "none";
+
     guideEl.style.display = "block";
     guideEl.innerText = "Searching For The Meaning";
     const theResult = await fetch(
@@ -23,8 +28,10 @@ async function apiFunction(word) {
     meaningEl.style.display = "block";
     meaningTwo.innerText = `Meaning (2) : ${secondMeaning}`;
     meaningTwo.style.display = "block";
-    theAudioEl.setAttribute("src", audioSource);
-    theAudioEl.style.display = "block";
+    if (audioSource) {
+      theAudioEl.setAttribute("src", audioSource);
+      theAudioEl.style.display = "block";
+    }
   } catch (error) {
     guideEl.style.display = "block";
     guideEl.innerText = "No Definitions Found";
@@ -37,3 +44,4 @@ inputEl.addEventListener("keyup", (e) => {
     apiFunction(e.target.value);
   }
 });
+
